@@ -1,0 +1,45 @@
+syntax = "proto3";
+package user;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "client/proto/user";
+
+service UserService {
+    rpc GetUser(GetUserRequest) returns (UserResponse);
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+}
+
+message GetUserRequest {
+    string name = 1;
+}
+
+message UserResponse {
+    User user = 1;
+}
+
+message CreateUserRequest {
+    string name = 1;
+    string password = 2;
+    google.protobuf.Timestamp birthdate = 3;
+    repeated User friends = 4;
+    Account account = 5;
+}
+
+message CreateUserResponse {
+    string name = 1;
+}
+
+message User {
+    string name = 1;
+    string password = 2;
+    google.protobuf.Timestamp birthdate = 3;
+    repeated User friends = 4;
+    Account account = 5;
+}
+
+enum Account {
+    PERSONAL = 0;
+    PROFESSIONAL = 1;
+    PUBLIC = 2;
+}
